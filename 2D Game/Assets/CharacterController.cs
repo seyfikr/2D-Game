@@ -1,6 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Xml.Serialization;
+using UnityEditor.PackageManager.UI;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CharacterController : MonoBehaviour
 {
@@ -12,6 +15,7 @@ public class CharacterController : MonoBehaviour
     [SerializeField] private float jumpSpeed;
     private float horizontalMovement;
     private bool isGrounded=true;
+    public bool isAttack=false;
     private bool isFacingRight = true;
     private Rigidbody2D rb2d;
     private bool isSword = true;
@@ -90,6 +94,19 @@ public class CharacterController : MonoBehaviour
         {
             isGrounded = true;
         }
+        if (other.gameObject.tag == "Knife")
+        {
+            SceneManager.LoadScene(0);
+
+        }
+    }
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.tag == "Knife")
+        {
+            SceneManager.LoadScene(0);
+
+        }
     }
     //private void OnCollisionExit2D(Collision2D other)
     //{
@@ -104,8 +121,13 @@ public class CharacterController : MonoBehaviour
     {
         isSword= false;
         anim.SetBool("Attack", true);
-        yield return new WaitForSeconds(0.8f);
+        yield return new WaitForSeconds(0.5f);
+        isAttack = true;
+        yield return new WaitForSeconds(1f);
+        isAttack = false;
         anim.SetBool("Attack", false);
+
+
         yield return new WaitForSeconds(5f);
         isSword = true;
     }

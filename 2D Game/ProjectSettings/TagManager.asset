@@ -7,6 +7,7 @@ TagManager:
   - Platform
   - Sword
   - Knife
+  - Door
   layers:
   - Default
   - TransparentFX

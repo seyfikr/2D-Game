@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 
 public class CharacterController : MonoBehaviour
 {
-    
+    Door Door;
     Animator anim;
     [Header("Move")]
 
@@ -26,16 +26,20 @@ public class CharacterController : MonoBehaviour
     [SerializeField] private float dashDistance = 5f;
     [SerializeField] private float dashDuration = 0.2f;
     [SerializeField] private TrailRenderer tr;
-
+   
     void Start()
     {
-        anim=GetComponent<Animator>();  
+        GameObject gameManager = GameObject.Find("Door");
+        Door = gameManager.GetComponent<Door>();
+        anim =GetComponent<Animator>();  
         rb2d=GetComponent<Rigidbody2D>();
     }
 
     
     void Update()
     {
+       
+    
         if (Input.GetKeyDown(KeyCode.Space) && !isDashing)
         {
             StartCoroutine(Dash());
@@ -58,6 +62,9 @@ public class CharacterController : MonoBehaviour
     private void FixedUpdate()
     {
         Movement();
+       
+
+
     }
     private void Movement()
     {
@@ -96,7 +103,27 @@ public class CharacterController : MonoBehaviour
         }
         if (other.gameObject.tag == "Knife")
         {
-            SceneManager.LoadScene(0);
+            
+            if (Door.door == false)
+            {
+                SceneManager.LoadScene(0);
+            }
+            else
+            {
+                transform.position = new Vector3(-12.98f, -25.78f, 0);
+            }
+
+        }
+        if (other.gameObject.tag == "ResPawmn")
+        {
+            if (Door.door == false)
+            {
+                SceneManager.LoadScene(0);
+            }
+            else
+            {
+                transform.position = new Vector3(-12.98f, -26.78f, 0);
+            }
 
         }
     }

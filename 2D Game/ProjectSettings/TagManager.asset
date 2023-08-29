@@ -8,14 +8,16 @@ TagManager:
   - Sword
   - Knife
   - Door
+  - TurnPoint
+  - ResPawmn
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Platform
   - Water
   - UI
-  - 
+  - Platform
   - 
   - 
   - 

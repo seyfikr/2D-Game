@@ -377,6 +377,7 @@
 "Assets/Script/Door.cs"
 "Assets/Script/Enemy.cs"
 "Assets/Script/Knife.cs"
+"Assets/Script/Rock.cs"
 -langversion:9.0
 
 /deterministic

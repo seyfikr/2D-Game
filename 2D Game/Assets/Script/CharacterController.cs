@@ -1,9 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Xml.Serialization;
-using UnityEditor.PackageManager.UI;
+//using UnityEditor.PackageManager.UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+//#if UNITY_EDITOR
+//// Unity Editor'a özgü PackageManager kodu burada
+//#endif
 
 public class CharacterController : MonoBehaviour
 {
@@ -156,7 +159,14 @@ public class CharacterController : MonoBehaviour
     {
         if (other.gameObject.tag == "Knife")
         {
-            SceneManager.LoadScene(0);
+            if (Door.door == false)
+            {
+                SceneManager.LoadScene(0);
+            }
+            else
+            {
+                transform.position = new Vector3(-12.98f, -26.78f, 0);
+            }
 
         }
     }

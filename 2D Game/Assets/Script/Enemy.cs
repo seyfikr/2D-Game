@@ -9,9 +9,10 @@ public class Enemy : MonoBehaviour
     Animator anim;
     public GameObject knifePrefab; // Ok prefabý
     public Transform spawnPos; // Oluþturulacak konum
-    public float spawnInterval = 4f; // Oluþturma aralýðý (saniye)
+    public float spawnInterval = 4f; // 
     CharacterController characterController;
     private float timer = 0f;
+    
     private void Start()
     {
         anim=GetComponent<Animator>();

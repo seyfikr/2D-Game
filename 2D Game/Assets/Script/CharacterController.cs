@@ -7,8 +7,16 @@ using UnityEngine.SceneManagement;
 
 public class CharacterController : MonoBehaviour
 {
+    [Header("Gameobject")]
+    [SerializeField] public GameObject Princes1;
+    [SerializeField] public GameObject Princes2;
+    [SerializeField] public GameObject Witch1;
+    [SerializeField] public GameObject Witch2;
+    [SerializeField] public GameObject Text;
+
     Door Door;
     Animator anim;
+    
     [Header("Move")]
 
     [SerializeField] private float movementSpeed;
@@ -20,7 +28,7 @@ public class CharacterController : MonoBehaviour
     private Rigidbody2D rb2d;
     private bool isSword = true;
     [Header("Coyoto")]
-    [SerializeField] private float coyoteTime = 0.2f;
+    
     private bool isDashing = false;
     [Header("Dash")] 
     [SerializeField] private float dashDistance = 5f;
@@ -31,8 +39,9 @@ public class CharacterController : MonoBehaviour
     {
         GameObject gameManager = GameObject.Find("Door");
         Door = gameManager.GetComponent<Door>();
-        anim =GetComponent<Animator>();  
-        rb2d=GetComponent<Rigidbody2D>();
+        anim =GetComponent<Animator>();
+        
+        rb2d =GetComponent<Rigidbody2D>();
     }
 
     
@@ -101,6 +110,22 @@ public class CharacterController : MonoBehaviour
         {
             isGrounded = true;
         }
+        if (other.gameObject.tag == "Pig")
+        {
+            SceneManager.LoadScene(0);
+        }
+        if (other.gameObject.tag == "Witch")
+        {
+            StartCoroutine(WrongPrincess());
+        }
+        if (other.gameObject.tag == "Witch2")
+        {
+            StartCoroutine(WrongPrincess2());
+        }
+        if (other.gameObject.tag == "Princess")
+        {
+            Text.SetActive(true);
+        }
         if (other.gameObject.tag == "Knife")
         {
             
@@ -135,15 +160,7 @@ public class CharacterController : MonoBehaviour
 
         }
     }
-    //private void OnCollisionExit2D(Collision2D other)
-    //{
-
-    //    if (other.gameObject.tag == "Platform")
-    //    {
-
-    //        StartCoroutine(WaitCoyoto());
-    //    }
-    //}
+  
     IEnumerator Sword()
     {
         isSword= false;
@@ -153,17 +170,39 @@ public class CharacterController : MonoBehaviour
         yield return new WaitForSeconds(1f);
         isAttack = false;
         anim.SetBool("Attack", false);
-
-
         yield return new WaitForSeconds(5f);
         isSword = true;
     }
-    IEnumerator WaitCoyoto()
+    
+    IEnumerator WrongPrincess()
     {
-        
-        yield return new WaitForSeconds(coyoteTime);
-        
-        isGrounded = false;
+        Princes1.SetActive(false);
+        yield return new WaitForSeconds(0.1f);
+        Witch1.SetActive(true);
+        yield return new WaitForSeconds(1f);
+        if (Door.door == false)
+        {
+            SceneManager.LoadScene(0);
+        }
+        else
+        {
+            transform.position = new Vector3(-12.98f, -26.78f, 0);
+        }
+    }
+    IEnumerator WrongPrincess2()
+    {
+        Princes2.SetActive(false);
+        yield return new WaitForSeconds(0.1f);
+        Witch2.SetActive(true);
+        yield return new WaitForSeconds(1f);
+        if (Door.door == false)
+        {
+            SceneManager.LoadScene(0);
+        }
+        else
+        {
+            transform.position = new Vector3(-12.98f, -26.78f, 0);
+        }
     }
     private IEnumerator Dash()
     {
